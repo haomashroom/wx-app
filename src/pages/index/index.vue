@@ -1,64 +1,76 @@
 <template>
   <view class="content">
-    <image class="logo" src="/static/logo.png"></image>
+    <view class="user-info">
+      <image class="userinfo-avatar" :src="userInfo.avatarUrl"></image>
+      <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+      <text class="userinfo-userId">{{ userId }}</text>
+    </view>
+
     <view>
-      <text class="title">{{ title }}</text>
       <van-button type="primary" size="small" @click="login">登录</van-button>
-      <van-button type="primary" size="small" @click="getInfo"
+      <van-button type="primary" size="small" @click="getUserProfile"
         >获取info</van-button
       >
     </view>
   </view>
 </template>
 <script>
+import { getSessionId, setSessionId, setUserId } from "../../utils/util";
 export default {
   data() {
     return {
-      title: "dake Test111",
-      isCanUse: uni.getStorageSync("isCanUse") || true, //默认为true
+      userId: "",
+      userInfo: {
+        nickName: "未登录",
+        avatarUrl: "/static/logo.png",
+      },
+      firstLoading: uni.getStorageSync("firstLoading") || true, //默认为true
     };
   },
-  onLoad() {},
+  onLoad() {
+    this.login();
+  },
   methods: {
     login() {
-      console.log(4333);
-
+      const sessionId = getSessionId();
+      //从微信服务器获取用户信息
       uni.login({
         provider: "weixin",
         success: (loginRes) => {
-          console.log(loginRes);
           //获取用户登录的code
           let code = loginRes.code;
-          //非第一次登录
-          if (!this.isCanUse) {
-            //非第一次授权获取用户信息
-            uni.getUserInfo({
-              provider: "weixin",
-              success: function(infoRes) {
-                console.log(infoRes);
-                //获取用户信息后向调用信息更新方法
-                let nickName = infoRes.userInfo.nickName; //昵称
-                let avatarUrl = infoRes.userInfo.avatarUrl; //头像
-                //_this.updateUserInfo(); //调用更新信息方法
-              },
-            });
-          }
           //登录成功后调用后台查询接口
-          //   this.$request(
-          //     "/wechat/login",
-          //     {
-          //       wechatSessionId: "",
-          //       js_code: code,
-          //     },
-          //     "post"
-          //   )
-          //     .then((res) => {
-          //       // 打印调用成功回调
-          //       console.log(res);
-          //     })
-          //     .catch((err) => {
-          //       console.log(err);
-          //     });
+          this.$request(
+            `/wechat/login?js_code=${code}&wechatSessionId=${sessionId}`,
+            {},
+            "post"
+          )
+            .then((res) => {
+              // 打印调用成功回调
+              console.log(res);
+              if (res.success) {
+                setSessionId(res.wechatSessionId);
+                this.userId = res.userId;
+                setUserId(res.userId);
+              } else {
+                console.log("没有绑定用户,跳转到用户注册界面");
+                //TODO:
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+      });
+    },
+    getUserProfile() {
+      uni.getUserProfile({
+        desc: "登录",
+        success: (res) => {
+          this.userInfo = res.userInfo;
+        },
+        fail: (err) => {
+          console.log(err);
         },
       });
     },
@@ -69,9 +81,8 @@ export default {
           console.log(infoRes);
           let nickName = infoRes.userInfo.nickName; //昵称
           let avatarUrl = infoRes.userInfo.avatarUrl; //头像
-          try {
-            uni.setStorageSync("isCanUse", false); //记录是否第一次授权  false:表示不是第一次授权
-          } catch (e) {}
+          this.userInfo = infoRes.userInfo;
+          uni.setStorageSync("firstLoading", false); //记录是否第一次授权  false:表示不是第一次授权
         },
         fail(res) {},
       });
@@ -80,7 +91,20 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa;
+}
+.userinfo-avatar {
+  overflow: hidden;
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
 .content {
   display: flex;
   flex-direction: column;
