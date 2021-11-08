@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       projectName: "你好",
-      columns: ["杭州", "宁波", "温州", "嘉兴", "湖州"],
+      columns: ["杭州1", "宁波", "温州", "嘉兴", "湖州"],
     };
   },
   created() {},
