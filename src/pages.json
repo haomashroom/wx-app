@@ -48,7 +48,11 @@
     "usingComponents": {
       "van-button": "/wxcomponents/vant/dist/button/index",
       "van-tab": "/wxcomponents/vant/dist/tab/index",
-      "van-tabs": "/wxcomponents/vant/dist/tabs/index"
+      "van-tabs": "/wxcomponents/vant/dist/tabs/index",
+      "van-field": "/wxcomponents/vant/dist/field/index",
+      "van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
+      "van-divider": "/wxcomponents/vant/dist/divider/index",
+      "van-picker": "/wxcomponents/vant/dist/picker/index"
     }
   }
 }
