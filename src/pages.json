@@ -50,9 +50,16 @@
       "van-tab": "/wxcomponents/vant/dist/tab/index",
       "van-tabs": "/wxcomponents/vant/dist/tabs/index",
       "van-field": "/wxcomponents/vant/dist/field/index",
+      "van-cell": "/wxcomponents/vant/dist/cell/index",
       "van-cell-group": "/wxcomponents/vant/dist/cell-group/index",
       "van-divider": "/wxcomponents/vant/dist/divider/index",
-      "van-picker": "/wxcomponents/vant/dist/picker/index"
+      "van-picker": "/wxcomponents/vant/dist/picker/index",
+      "van-popup": "/wxcomponents/vant/dist/popup/index",
+      "van-calendar": "/wxcomponents/vant/dist/calendar/index",
+      "van-datetime-picker": "/wxcomponents/vant/dist/datetime-picker/index",
+      "van-uploader": "/wxcomponents/vant/dist/uploader/index",
+      "van-collapse": "/wxcomponents/vant/dist/collapse/index",
+      "van-collapse-item": "/wxcomponents/vant/dist/collapse-item/index"
     }
   }
 }
