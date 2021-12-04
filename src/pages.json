@@ -59,7 +59,9 @@
       "van-datetime-picker": "/wxcomponents/vant/dist/datetime-picker/index",
       "van-uploader": "/wxcomponents/vant/dist/uploader/index",
       "van-collapse": "/wxcomponents/vant/dist/collapse/index",
-      "van-collapse-item": "/wxcomponents/vant/dist/collapse-item/index"
+      "van-collapse-item": "/wxcomponents/vant/dist/collapse-item/index",
+      "van-icon": "/wxcomponents/vant/dist/icon/index",
+      "van-search": "/wxcomponents/vant/dist/search/index"
     }
   }
 }

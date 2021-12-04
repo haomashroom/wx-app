@@ -1,12 +1,12 @@
 <script>
 export default {
-  onLaunch: function() {
+  onLaunch: function () {
     console.log("App Launch");
   },
-  onShow: function() {
+  onShow: function () {
     console.log("App Show");
   },
-  onHide: function() {
+  onHide: function () {
     console.log("App Hide");
   },
 };
@@ -15,7 +15,7 @@ export default {
 <style>
 /*每个页面公共css */
 @import "/wxcomponents/vant/dist/common/index.wxss";
-
+@import "@/style/common.scss";
 page {
   width: 100%;
   height: 100%;

@@ -1,0 +1,14 @@
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fix-flex{
+    display: flex;
+    flex:1;
+    height: 0;
+}
+.flex-box{
+    display: flex;
+}

@@ -4,33 +4,15 @@
     <view class="form-body">
       <van-divider contentPosition="left">业务信息</van-divider>
       <van-cell-group>
-        <van-field
-          label="项目名称"
-          :value="projectName"
-          placeholder="请输入用户名"
-          @change="onChange"
-        />
-        <my-select
-          label="供应商"
-          v-model="supplier"
-          showSearch
-          :defaultOptions="testData"
-          :onSearch="onSearch"
-        ></my-select>
-        <my-select
-          label="订单类型"
-          :defaultOptions="testData1"
-          @onSelect="onSelect"
-        ></my-select>
+        <van-field label="项目名称" :value="projectName" placeholder="请输入用户名" @change="onChange" />
+        <my-select label="供应商" v-model="supplier" showSearch :defaultOptions="testData" :onSearch="onSearch"></my-select>
+        <my-select label="订单类型" :defaultOptions="testData1" @onSelect="onSelect"></my-select>
         <calendar label="订单日期" v-model="date1"></calendar>
         <date-picker label="订单日期1" v-model="date2"></date-picker>
       </van-cell-group>
       <van-divider contentPosition="left">上传附件</van-divider>
-      <!-- <van-cell-group>
-        <van-uploader :file-list="list" @after-read="afterRead" />
-        <button @click="test">测试</button>
-      </van-cell-group> -->
-      <approval-process></approval-process>
+      <van-uploader :file-list="fileList" />
+      <approval-process :list="processList" @onCloseItem="onCloseItem" :onLoadData="onLoadData" @onSearch="onSearch" @onSelect="onSelect"></approval-process>
     </view>
     <view class="footer-wrapper">
       <van-button round type="info" block>提交</van-button>
@@ -44,6 +26,18 @@ import calendar from "@/components/filed-calendar/index.vue";
 import datePicker from "@/components/filed-datepicker/index.vue";
 import approvalProcess from "@/components/approval-process/index.vue";
 import { debounce } from "../../utils/util";
+const data = [
+  { name: "林晨", desc: "信息技术中心" },
+  { name: "刘琛", desc: "体育中心" },
+  { name: "张三", desc: "够爱的IE" },
+  { name: "林晨", desc: "信息技术中心" },
+  { name: "林啊四", desc: "信息技术中心" },
+  { name: "刘大可", desc: "信息技术中心" },
+  { name: "王小六", desc: "信息技术中心" },
+  { name: "林晨1", desc: "信息技术中心" },
+  { name: "林晨2", desc: "信息技术中心" },
+  { name: "林晨3", desc: "信息技术中心" },
+];
 export default {
   components: {
     mySelect: select,
@@ -76,10 +70,17 @@ export default {
       list: [],
       date1: "2021/11/12",
       date2: "2021/11/11",
+      fileList: [],
+      processList: [],
     };
   },
 
-  created() {},
+  created() {
+    this.processList = [
+      { name: "process1", title: "审批工程师", list: ["刘振俊", "张小涛"] },
+      { name: "process2", title: "审批经理", list: ["邵文佳"] },
+    ];
+  },
   mounted() {},
   methods: {
     test() {
@@ -111,21 +112,27 @@ export default {
         callback([...res, ...data]);
       }, 200);
     }, 500),
-    afterRead(event) {
-      const { file } = event.detail;
-      // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-      wx.uploadFile({
-        url: "https://example.weixin.qq.com/upload", // 仅为示例，非真实的接口地址
-        filePath: file.url,
-        name: "file",
-        formData: { user: "test" },
-        success(res) {
-          // 上传完成需要更新 fileList
-          const { fileList = [] } = this.data;
-          fileList.push({ ...file, url: res.data });
-          this.setData({ fileList });
-        },
-      });
+    //删除筛选人
+    onCloseItem({ cur, index, i }) {
+      console.log(cur, index, i);
+      this.processList[index].list.splice(i, 1);
+      console.log(this.processList);
+    },
+    onLoadData({ item, index }, callback) {
+      console.log("item", item, index);
+      setTimeout(() => {
+        callback(data);
+      }, 800);
+    },
+    onSearch(txt, callback) {
+      const res = data.filter((item) => item.name.indexOf(txt) > -1);
+      callback(res);
+    },
+    onSelect(selectItem, openItem) {
+      // openItem.list.push(selectItem.name);
+      const obj = this.processList.find((d) => d.name === openItem.name);
+      obj.list.push(selectItem.name);
+      console.log(this.processList);
     },
   },
 };

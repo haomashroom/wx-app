@@ -1,32 +1,20 @@
 <template>
   <view>
     <van-field :label="label" :value="date" @focus="onDisplay" />
-    <van-popup
-      :show="show"
-      :overlay="true"
-      custom-style="width:100%;"
-      overlay-style="background:#ffffff24;"
-      position="bottom"
-      @click-overlay="onBlur"
-    >
-      <van-datetime-picker
-        type="date"
-        :value="currentDate"
-        :formatter="formatter"
-        @input="onInput"
-        @cancel="onBlur"
-        @confirm="confirm"
-      />
+    <van-popup :show="show" :overlay="true" custom-style="width:100%;" overlay-style="background:#ffffff24;" position="bottom" @click-overlay="onBlur">
+      <van-datetime-picker type="date" :value="currentDate" :formatter="formatter" @input="onInput" @cancel="onBlur" @confirm="confirm" />
     </van-popup>
   </view>
 </template>
 
 <script>
+import hideKeyboard from "@/mixins/hideKeyboard";
 export default {
   props: {
     label: String,
     value: String,
   },
+  mixins: [hideKeyboard],
   data() {
     return {
       show: false,
