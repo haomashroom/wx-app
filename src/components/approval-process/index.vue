@@ -9,7 +9,7 @@
             </view>
             <view class="content-wrapper">
               <view class="process-title">{{item.title}}</view>
-              <view class="process-tip" v-if="!item.list.length">请选择审批人</view>
+              <view class="process-tip" v-if="!item.list.length">请选择审批人1</view>
             </view>
             <view class="select-wrapper">
               <view class="select-content flex-box">
