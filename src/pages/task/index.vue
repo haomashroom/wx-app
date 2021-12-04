@@ -8,7 +8,7 @@
         <my-select label="供应商" v-model="supplier" showSearch :defaultOptions="testData" :onSearch="onSearch"></my-select>
         <my-select label="订单类型" :defaultOptions="testData1" @onSelect="onSelect"></my-select>
         <calendar label="订单日期" v-model="date1"></calendar>
-        <date-picker label="订单日期12" v-model="date2"></date-picker>
+        <date-picker label="订单日期" v-model="date2"></date-picker>
       </van-cell-group>
       <van-divider contentPosition="left">上传附件</van-divider>
       <van-uploader :file-list="fileList" />
