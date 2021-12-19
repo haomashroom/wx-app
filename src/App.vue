@@ -12,10 +12,11 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 /*每个页面公共css */
 @import "/wxcomponents/vant/dist/common/index.wxss";
 @import "@/style/common.scss";
+
 page {
   width: 100%;
   height: 100%;

@@ -14,9 +14,9 @@
             <view class="select-wrapper">
               <view class="select-content flex-box">
                 <view class="select-item" v-for="(cur,i) in item.list" :key="i">
-                  <view class="close" @click="close(cur,index,i)">X</view>
+                  <view class="close-icon" @click="close(cur,index,i)">X</view>
                   <view class="desc flex-center">{{cur.slice(-2)}}</view>
-                  <view class="name"><text>{{cur}}</text></view>
+                  <view class="name"><text class="text">{{cur}}</text></view>
                 </view>
               </view>
               <view class="select-icon" @click="showSearchList(item,index)">
@@ -151,7 +151,7 @@ export default {
         flex-direction: column;
         margin-right: 16rpx;
         position: relative;
-        .close {
+        .close-icon {
           width: 32rpx;
           height: 32rpx;
           background: #383737;
@@ -162,6 +162,7 @@ export default {
           top: -8rpx;
           text-align: center;
           font-size: 9px;
+          opacity: 0.8;
         }
         .desc {
           width: 24px;
@@ -175,7 +176,7 @@ export default {
         }
         .name {
           text-align: center;
-          text {
+          .text {
             font-size: 10px;
           }
         }

@@ -3,7 +3,9 @@
     justify-content: center;
     align-items: center;
 }
-
+.flex{
+    display: flex;
+}
 .fix-flex{
     display: flex;
     flex:1;
@@ -11,4 +13,22 @@
 }
 .flex-box{
     display: flex;
+}
+.section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .title{
+        padding: 16px 16px 8px 32px;
+        color: #969799;
+        font-size: 14px;
+        line-height: 16px;
+    }
+    .content{
+        background: #ffffff;
+        padding:  $uni-spacing-col-lg $uni-spacing-row-lg;
+    }
+}
+.no-padding{
+    padding: 0 !important;
 }
